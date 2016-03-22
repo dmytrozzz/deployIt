@@ -1,5 +1,7 @@
 FROM frolvlad/alpine-oraclejdk8
 
+MAINTAINER hello@clabs.com.ua <Dmytro Khaynas>
+
 RUN apk add --update dropbear openssh-sftp-server bash mc git curl && \
     rm -rf /var/cache/apk/* && \
     mkdir /etc/dropbear && \
