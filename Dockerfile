@@ -1,17 +1,22 @@
-FROM frolvlad/alpine-oraclejdk8
+FROM java:8-jdk
 
 MAINTAINER hello@clabs.com.ua <Dmytro Khaynas>
 
-RUN apk add --update dropbear openssh-sftp-server bash mc git curl && \
-    rm -rf /var/cache/apk/* && \
-    mkdir /etc/dropbear && \
-    touch /var/log/lastlog && \
-    adduser -D deployIt && echo "deployIt:deployIt" | chpasswd
+RUN apt-get update && \
+    apt-get -y install bash mc git
+
+ENV GRADLE_VERSION 2.12
+
+WORKDIR /usr/bin
+RUN curl -sLO https://services.gradle.org/distributions/gradle-${GRADLE_VERSION}-all.zip && \
+  unzip gradle-${GRADLE_VERSION}-all.zip && \
+  ln -s gradle-${GRADLE_VERSION} gradle && \
+  rm gradle-${GRADLE_VERSION}-all.zip
+
+ENV GRADLE_HOME /usr/bin/gradle
+ENV PATH $PATH:$GRADLE_HOME/bin
 
 WORKDIR /home/deployIt
 ADD run.sh run.sh
-
-RUN chown -R deployIt:deployIt /home/deployIt
 RUN chmod +x run.sh
-
 CMD ["/home/deployIt/run.sh"]
