@@ -7,6 +7,7 @@ function lazyclone {
     cd $reponame;
 }
 lazyclone $REPO
+chmod +x ./gradlew
 ./gradlew build
 nohup ./gradlew bootRun &
 while true
