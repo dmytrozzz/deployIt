@@ -7,6 +7,7 @@ function lazyclone {
     cd $reponame;
 }
 lazyclone $REPO
+gradle clean
 gradle build --continuous
 nohup gradle bootRun &
 while true
