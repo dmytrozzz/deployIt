@@ -7,12 +7,12 @@ function lazyclone {
     cd $reponame;
 }
 lazyclone $REPO
-gradle build
+gradle build --continuous
 nohup gradle bootRun &
 while true
 do
  echo "Git pull, yo!"
- git pull | grep -v "up-to-date" && gradle clean build
+ git pull #| grep -v "up-to-date" && gradle clean build
  sleep 5
 done
 #tail -f /dev/null
