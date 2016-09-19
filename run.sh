@@ -9,7 +9,7 @@ function lazyclone {
 lazyclone $REPO
 gradle clean
 nohup gradle build --continuous &
-nohup gradle bootRun &
+nohup gradle bootRun -x test &
 while true
 do
  echo "Git pull, yo!"
