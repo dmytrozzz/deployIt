@@ -12,8 +12,8 @@ nohup gradle build --continuous &
 nohup gradle bootRun -x test &
 while true
 do
- echo "Git pull, yo!"
- git pull #| grep -v "up-to-date" && gradle clean build
+ #echo "Git pull, yo!"
+ git pull -q #| grep -v "up-to-date" && gradle clean build
  sleep 5
 done
 #tail -f /dev/null
